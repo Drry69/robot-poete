@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Générateur de Poèmes d'Adrien</title>
+<style>
+        /* Un peu de style pour que ce soit joli */
+        body {
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            background-image: url("maison-ecrivain-visiter-france.jpg");
+            background-size cover;
+            background-position: center;
+            background-attachment: fixed;
+            text-align: center;
+            padding: 50px;
+            margin: 0;
+
+            /* Les 3 lignes magiques pour centrer la case*/
+            display:flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: rgb(155, 131, 85);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
+            max-width: 500px; /* Note : Tu peux l'augmenter à 500px si ta carte est trop étroite ! */
+            margin: 0 auto;
+        }
+
+        select, button {
+            padding: 10px;
+            font-size: 16px;
+            margin: 10px;
+            border-radius: 5px;
+            border: 1px solid #858585;
+        }
+
+        button {
+            background-color: #000000;
+            color: rgb(255, 255, 255);
+            cursor: pointer;
+            border: none;
+        }
+
+        #poeme-zone {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #c5bfc1;
+            border-left: 5px solid #323232;
+            white-space: pre-line; /* Permet de garder les retours à la ligne du poème */
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Le Robot Poète d'Adrien </h1>
+        <p>Génère un poème unique sur mon grand frère Léonce !</p>
+        
+        <label for="ton-select">Choisis le ton du poème :</label>
+        <select id="ton-select">
+            <option value="joyeux">Joyeux </option>
+            <option value="triste">Triste </option>
+            <option value="epique">Épique </option>
+        </select>
+        
+        <br>
+        <button>Générer le poème</button>
+        
+        <div id="poeme-zone">
+            (Le poème apparaîtra ici...)
+        </div>
+    </div>
+
+<script>
+// On récupère les éléments de la page
+const bouton = document.querySelector('button');
+const select = document.querySelector('select');
+const poemeZone = document.getElementById('poeme-zone');
+
+// Notre base de données de poèmes pour Léonce
+const poemes = {
+    joyeux: [
+        "Léonce, mon grand frère adoré,\nToujours là pour me faire rigoler !\nAvec ton sourire et ta bonne humeur,\nTu apportes la joie directement au cœur.",
+        "Un rayon de soleil dans la maison,\nC'est Léonce qui chante à l'unisson !\nMon grand frère a un cœur en or,\nDans ma vie, c'est un vrai trésor."
+    ],
+    triste: [
+        "Parfois les nuages cachent le soleil,\nMais le lien d'un frère reste sans pareil.\nMême dans les moments un peu gris,\nSache que je suis là pour toi, mon ami.",
+        "Les jours passent et la nostalgie demeure,\nMais repenser à nos rires efface la douleur.\nMon grand frère Léonce, quoi qu'il advienne,\nJe ferai en sorte que ton sourire revienne."
+    ],
+    epique: [
+        "Oyez l'histoire du grand Léonce le vaillant,\nFrère héroïque au courage étincelant !\nFace aux défis, jamais il ne recule,\nSa légende grandit, son ombre majuscule !",
+        "Tel un chevalier bravant la tempête,\nLéonce avance, la victoire à la tête.\nProtecteur infaillible, frère au grand destin,\nRien ne peut l'arrêter sur son chemin !"
+    ]
+};
+
+// Quand on clique sur le bouton
+bouton.addEventListener('click', () => {
+    // On récupère le ton choisi (joyeux, triste, epique...)
+    const tonChoisi = select.value;
+    
+    // On sélectionne la liste de poèmes correspondante
+    const listePoemes = poemes[tonChoisi];
+    
+    if (listePoemes) {
+        // On choisit un poème au hazard dans la liste
+        const hasard = Math.floor(Math.random() * listePoemes.length);
+        const poemeFinal = listePoemes[hasard];
+        
+        // On affiche le poème dans la zone prévue
+        poemeZone.innerText = poemeFinal;
+    } else {
+        poemeZone.innerText = "Sélectionne un ton valide pour générer un poème !";
+    }
+});
+</script>
+
+</html>
